@@ -3,6 +3,8 @@ package client
 import (
 	"context"
 	"fmt"
+	"io"
+	"log"
 
 	pb "github.com/yatintri/GoAndGrpc/proto"
 )
@@ -64,14 +66,20 @@ func (tc *TrainClient) GetUsersBySection(section string) ([]*pb.Ticket, error) {
 	if err != nil {
 		return nil, fmt.Errorf("GetUsersBySection failed: %v", err)
 	}
+	log.Printf("Received stream for section %s", section)
 
 	var tickets []*pb.Ticket
 
 	for {
 		ticket, err := stream.Recv()
 		if err != nil {
+			// Check if it's an EOF error before logging
+			if err != io.EOF {
+				log.Fatalf("Failed to receive ticket: %v", err)
+			}
 			break
 		}
+		log.Printf("Received Ticket: %+v", ticket)
 		tickets = append(tickets, ticket)
 	}
 

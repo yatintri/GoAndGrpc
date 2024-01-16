@@ -3,6 +3,8 @@ package server
 import (
 	"context"
 	"fmt"
+	"strings"
+
 	pb "github.com/yatintri/GoAndGrpc/proto"
 )
 
@@ -64,7 +66,9 @@ func (s *trainServer) GetReceiptDetails(ctx context.Context, req *pb.User) (*pb.
 func (s *trainServer) GetUsersBySection(req *pb.GetUsersRequest, stream pb.TrainService_GetUsersBySectionServer) error {
 	// Send tickets for the requested section to the client
 	for _, ticket := range s.tickets {
-		if ticket.Section == req.Section {
+
+		sections := strings.Split(ticket.Section, "-")
+		if sections[0] == req.Section {
 			if err := stream.Send(&ticket); err != nil {
 				return err
 			}

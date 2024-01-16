@@ -23,10 +23,72 @@ func main() {
 
 	trainClient := client.NewTrainClient(pb.NewTrainServiceClient(conn))
 
-	// Use the underscore to ignore the error if you're not planning to handle it explicitly
-	_, err = trainClient.PurchaseTicket("London", "France", "Yatin", "Tripathi", "yatintripathi0679@gmail.com", "A", 20.0)
+	_, err = trainClient.PurchaseTicket("London", "France", "Yatin", "Tripathi", "yatint@gmail.com", "A", 20.0)
 	if err != nil {
 		log.Fatalf("Failed to purchase ticket: %v", err)
 	}
 
+	//----------------------------------------------------------------------------------------------------------------
+
+	// // Call the GetUsersBySection method
+	// section := "A"
+	// tickets, err := trainClient.GetUsersBySection(section)
+	// if err != nil {
+	// 	log.Fatalf("Failed to get users by section: %v", err)
+	// }
+
+	// // Print the received tickets
+	// log.Printf("Tickets for section %s: %v", section, tickets)
+
+	//----------------------------------------------------------------------------------------------------------------
+
+	// // Call the GetReceiptDetails method
+	// user := &pb.User{
+	// 	FirstName: "Manish",
+	// 	LastName:  "Singh",
+	// 	Email:     "Mani@gmail.com",
+	// }
+
+	// receipt, err := trainClient.GetReceiptDetails(user.FirstName, user.LastName, user.Email)
+	// if err != nil {
+	// 	log.Fatalf("Failed to get receipt details: %v", err)
+	// }
+
+	// // Print the received receipt
+	// log.Printf("Receipt Details: %+v", receipt)
+
+	//----------------------------------------------------------------------------------------------------------------
+
+	// // Call the DeleteUser method
+	// userToDelete := &pb.User{
+	// 	FirstName: "Manish",
+	// 	LastName:  "Singh",
+	// 	Email:     "Mani@gmail.com",
+	// }
+
+	// deletedTicket, err := trainClient.DeleteUser(userToDelete.FirstName, userToDelete.LastName, userToDelete.Email)
+	// if err != nil {
+	// 	log.Fatalf("Failed to delete user: %v", err)
+	// }
+
+	// // Print the deleted ticket
+	// log.Printf("Deleted Ticket: %+v", deletedTicket)
+
+	//----------------------------------------------------------------------------------------------------------------
+
+	// // Call the ModifyUserSeat method
+	// modifyUser := &pb.User{
+	// 	FirstName: "Anurag",
+	// 	LastName:  "Bansal",
+	// 	Email:     "anu798@gmail.com",
+	// }
+
+	// newSeat := "B-3"
+	// modifiedTicket, err := trainClient.ModifyUserSeat(modifyUser.FirstName, modifyUser.LastName, modifyUser.Email, newSeat)
+	// if err != nil {
+	// 	log.Fatalf("Failed to modify user seat: %v", err)
+	// }
+
+	// // Print the modified ticket
+	// log.Printf("Modified Ticket: %+v", modifiedTicket)
 }
