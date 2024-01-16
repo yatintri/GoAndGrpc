@@ -52,7 +52,6 @@ func (tc *TrainClient) GetReceiptDetails(firstName, lastName, email string) (*pb
 	if err != nil {
 		return nil, fmt.Errorf("GetReceiptDetails failed: %v", err)
 	}
-
 	return response, nil
 }
 

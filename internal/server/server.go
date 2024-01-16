@@ -3,11 +3,11 @@ package server
 import (
 	"context"
 	"fmt"
-	
 	pb "github.com/yatintri/GoAndGrpc/proto"
 )
 
 type trainServer struct {
+	pb.UnimplementedTrainServiceServer
 	tickets map[string]pb.Ticket
 }
 
@@ -22,13 +22,16 @@ func (s *trainServer) PurchaseTicket(ctx context.Context, req *pb.Ticket) (*pb.T
 	if req == nil {
 		return nil, fmt.Errorf("Invalid Ticket: nil input")
 	}
-
+	if req.User == nil {
+        return nil, fmt.Errorf("Invalid User: nil input")
+    }
 	if req.Section != "A" && req.Section != "B" {
 		return nil, fmt.Errorf("Invalid Section")
 	}
 
 	seat := fmt.Sprintf("%s-%d", req.Section, len(s.tickets)+1)
 
+	fmt.Println(seat);
 	// Create a new instance of pb.Ticket before modifying it
 	newReq := *req
 	newReq.Section = seat
